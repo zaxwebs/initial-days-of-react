@@ -2,33 +2,39 @@ import "./App.css"
 import { useState } from "react"
 
 function App() {
-	const initialTasks = [
-		{
-			title: "Update apps",
-			completed: true,
-		},
-		{
-			title: "Learn the basics of React",
-			completed: true,
-		},
-		{
-			title: "Learn more about React",
-			completed: false,
-		},
-		{
-			title: "Read about Apache",
-			completed: false,
-		},
-	]
-
 	const skeletonTask = {
 		title: "",
 		completed: false,
 	}
 
+	const initialTasks = [
+		{
+			...skeletonTask,
+			title: "Update apps",
+			completed: true,
+		},
+		{
+			...skeletonTask,
+			title: "Learn the basics of React",
+			completed: true,
+		},
+		{
+			...skeletonTask,
+			title: "Learn more about React",
+			completed: false,
+		},
+		{
+			...skeletonTask,
+			title: "Read about Apache",
+			completed: false,
+		},
+	]
+
 	const [tasks, setTasks] = useState([...initialTasks])
 	const [filter, setFilter] = useState("all")
 	const [sort, setSort] = useState("original")
+	const [editing, setEditing] = useState(-1)
+	const [newTitle, setNewTitle] = useState("")
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -94,6 +100,28 @@ function App() {
 					return
 			}
 		}
+	}
+
+	const resetEditing = () => {
+		setEditing(-1)
+		setNewTitle("")
+	}
+
+	const toggleEditing = (index) => {
+		if (index !== editing) {
+			setEditing(index)
+			setNewTitle(tasks[index].title)
+		} else {
+			resetEditing()
+		}
+	}
+
+	const updateTaskTitle = (index) => {
+		let newTasks = [...tasks]
+		let newTask = { ...tasks[index], title: newTitle }
+		newTasks[index] = newTask
+		setTasks(newTasks)
+		resetEditing()
 	}
 
 	return (
@@ -251,30 +279,83 @@ function App() {
 					.sort(taskSort())
 					.map((task, index) => (
 						<li key={index} className="list-group-item">
-							<div className="task d-flex">
+							<div className="task d-flex flex-wrap">
 								<div className="flex-grow-1">
-									<input
-										className="form-check-input me-2"
-										type="checkbox"
-										id={"task-" + index}
-										checked={task.completed}
-										readOnly
-										onClick={() => {
-											toggleComplete(task.originalIndex)
-										}}
-									></input>
-									<label
-										htmlFor={"task-" + index}
-										className={
-											task.completed
-												? "text-muted"
-												: undefined
-										}
-									>
-										{task.title}
-									</label>
+									<div className="d-flex">
+										<input
+											className="form-check-input form-check-input-lg me-3"
+											type="checkbox"
+											id={"task-" + index}
+											checked={task.completed}
+											readOnly
+											onClick={() => {
+												toggleComplete(
+													task.originalIndex
+												)
+											}}
+										></input>
+										{editing !== task.originalIndex ? (
+											<div
+												className={
+													task.completed
+														? "text-muted"
+														: undefined
+												}
+											>
+												{task.title}
+											</div>
+										) : (
+											<div className="me-3 flex-grow-1">
+												<input
+													type="text"
+													className="form-control"
+													value={newTitle}
+													onChange={(e) => {
+														setNewTitle(
+															e.target.value
+														)
+													}}
+													name="title"
+												></input>
+											</div>
+										)}
+									</div>
 								</div>
 								<div className="">
+									{editing !== task.originalIndex ? (
+										<button
+											type="button"
+											className="btn btn-secondary btn-sm me-2"
+											onClick={() =>
+												toggleEditing(
+													task.originalIndex
+												)
+											}
+										>
+											Edit
+										</button>
+									) : (
+										<>
+											<button
+												type="button"
+												className="btn btn-primary btn-sm me-2"
+												onClick={() =>
+													updateTaskTitle(
+														task.originalIndex
+													)
+												}
+											>
+												Update
+											</button>
+											<button
+												type="button"
+												className="btn btn-secondary btn-sm me-2"
+												onClick={() => resetEditing()}
+											>
+												Cancel Edit
+											</button>
+										</>
+									)}
 									<button
 										type="submit"
 										className="btn btn-secondary btn-sm"
@@ -282,7 +363,7 @@ function App() {
 											handleDelete(task.originalIndex)
 										}
 									>
-										Delete Task
+										Delete
 									</button>
 								</div>
 							</div>
