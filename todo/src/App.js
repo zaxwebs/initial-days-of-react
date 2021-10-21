@@ -4,11 +4,19 @@ import { useState } from "react"
 function App() {
 	const initialTasks = [
 		{
+			title: "Update apps",
+			completed: true,
+		},
+		{
 			title: "Learn the basics of React",
 			completed: true,
 		},
 		{
 			title: "Learn more about React",
+			completed: false,
+		},
+		{
+			title: "Read about Apache",
 			completed: false,
 		},
 	]
@@ -19,6 +27,7 @@ function App() {
 	}
 
 	const [tasks, setTasks] = useState([...initialTasks])
+	const [filter, setFilter] = useState("all")
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -44,6 +53,17 @@ function App() {
 		setTasks(newTasks)
 	}
 
+	const getFilteredTasks = () => {
+		switch (filter) {
+			case "all":
+				return tasks
+			case "pending":
+				return tasks.filter((task) => !task.completed)
+			case "completed":
+				return tasks.filter((task) => task.completed)
+		}
+	}
+
 	return (
 		<div className="container py-3">
 			<pre>
@@ -67,7 +87,60 @@ function App() {
 					</div>
 				</div>
 			</form>
-			<h3 className="mb-3">Your Tasks</h3>
+			<h3 className="mb-2">Your Tasks</h3>
+			<div
+				className="btn-group btn-group-sm mb-3"
+				role="group"
+				aria-label="Basic radio toggle button group"
+				onChange={(e) => {
+					setFilter(e.target.value)
+				}}
+			>
+				<input
+					type="radio"
+					className="btn-check"
+					name="filter"
+					id="filter-all"
+					value="all"
+					checked={filter === "all"}
+					readOnly
+				></input>
+				<label className="btn btn-outline-primary" htmlFor="filter-all">
+					All
+				</label>
+
+				<input
+					type="radio"
+					className="btn-check"
+					name="filter"
+					id="filter-pending"
+					value="pending"
+					checked={filter === "pending"}
+					readOnly
+				></input>
+				<label
+					className="btn btn-outline-primary"
+					htmlFor="filter-pending"
+				>
+					Pending
+				</label>
+
+				<input
+					type="radio"
+					className="btn-check"
+					name="filter"
+					id="filter-completed"
+					value="completed"
+					checked={filter === "completed"}
+					readOnly
+				></input>
+				<label
+					className="btn btn-outline-primary"
+					htmlFor="filter-completed"
+				>
+					Completed
+				</label>
+			</div>
 			{!tasks.length && (
 				<div className="text-muted">
 					You don't have any tasks at the moment.
@@ -75,20 +148,30 @@ function App() {
 			)}
 
 			<ul className="list-group">
-				{tasks.map((task, index) => (
+				{getFilteredTasks().map((task, index) => (
 					<li key={index} className="list-group-item">
 						<div className="task d-flex">
 							<div className="flex-grow-1">
 								<input
 									className="form-check-input me-2"
 									type="checkbox"
-									id="flexCheckChecked"
+									id={"task-" + index}
 									checked={task.completed}
+									readOnly
 									onClick={() => {
 										toggleComplete(index)
 									}}
 								></input>
-								{task.title}
+								<label
+									htmlFor={"task-" + index}
+									className={
+										task.completed
+											? "text-muted"
+											: undefined
+									}
+								>
+									{task.title}
+								</label>
 							</div>
 							<div className="">
 								<button
