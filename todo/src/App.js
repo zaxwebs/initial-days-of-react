@@ -1,3 +1,11 @@
+/*
+
+The objective of this repo is to understand state and events.
+Dividing into components will be covered later.
+This is also an attempt at understanding the implications of using index as keys.
+
+*/
+
 import "./App.css"
 import { useState } from "react"
 
@@ -126,12 +134,6 @@ function App() {
 
 	return (
 		<div className="container py-3">
-			<div className="text-muted mb-3">
-				The objective of this repo is to understand state and events.
-				Dividing into components will be covered later. This is also an
-				attempt at understanding the implications of using index as
-				keys.
-			</div>
 			<form onSubmit={handleSubmit}>
 				<div className="row">
 					<div className="col-md-8 mb-3">
