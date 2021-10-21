@@ -53,14 +53,24 @@ function App() {
 		setTasks(newTasks)
 	}
 
+	const getIndexedTasks = () => {
+		return tasks.map((task, index) => ({
+			...task,
+			originalIndex: index,
+		}))
+	}
+
 	const getFilteredTasks = () => {
+		// link index to original, used later in map events
+		const cloneTasks = getIndexedTasks()
+
 		switch (filter) {
-			case "all":
-				return tasks
 			case "pending":
-				return tasks.filter((task) => !task.completed)
+				return cloneTasks.filter((task) => !task.completed)
 			case "completed":
-				return tasks.filter((task) => task.completed)
+				return cloneTasks.filter((task) => task.completed)
+			default:
+				return cloneTasks
 		}
 	}
 
@@ -159,7 +169,7 @@ function App() {
 									checked={task.completed}
 									readOnly
 									onClick={() => {
-										toggleComplete(index)
+										toggleComplete(task.originalIndex)
 									}}
 								></input>
 								<label
@@ -177,7 +187,9 @@ function App() {
 								<button
 									type="submit"
 									className="btn btn-secondary btn-sm"
-									onClick={() => handleDelete(index)}
+									onClick={() =>
+										handleDelete(task.originalIndex)
+									}
 								>
 									Delete Task
 								</button>
