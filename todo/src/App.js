@@ -5,18 +5,28 @@ function App() {
 	const initialTasks = [
 		{
 			title: "Learn the basics of React",
+			completed: true,
 		},
 		{
 			title: "Learn more about React",
+			completed: false,
 		},
 	]
+
+	const skeletonTask = {
+		title: "",
+		completed: false,
+	}
 
 	const [tasks, setTasks] = useState([...initialTasks])
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		e.target.title.value &&
-			setTasks([...tasks, { title: e.target.title.value }])
+			setTasks([
+				...tasks,
+				{ ...skeletonTask, title: e.target.title.value },
+			])
 		//reset value
 		e.target.title.value = ""
 	}
@@ -24,6 +34,13 @@ function App() {
 	const handleDelete = (index) => {
 		let newTasks = [...tasks]
 		newTasks.splice(index, 1)
+		setTasks(newTasks)
+	}
+
+	const toggleComplete = (index) => {
+		let newTasks = [...tasks]
+		let newTask = { ...tasks[index], completed: !tasks[index].completed }
+		newTasks[index] = newTask
 		setTasks(newTasks)
 	}
 
@@ -61,7 +78,18 @@ function App() {
 				{tasks.map((task, index) => (
 					<li key={index} className="list-group-item">
 						<div className="task d-flex">
-							<div className="flex-grow-1">{task.title}</div>
+							<div className="flex-grow-1">
+								<input
+									className="form-check-input me-2"
+									type="checkbox"
+									id="flexCheckChecked"
+									checked={task.completed}
+									onClick={() => {
+										toggleComplete(index)
+									}}
+								></input>
+								{task.title}
+							</div>
 							<div className="">
 								<button
 									type="submit"
