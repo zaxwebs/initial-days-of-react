@@ -157,7 +157,6 @@ function App() {
 				<div
 					className="btn-group btn-group-sm mb-3"
 					role="group"
-					aria-label="Basic radio toggle button group"
 					onChange={(e) => {
 						setFilter(e.target.value)
 					}}
@@ -175,7 +174,7 @@ function App() {
 						className="btn btn-outline-primary"
 						htmlFor="filter-all"
 					>
-						All
+						Show All
 					</label>
 
 					<input
@@ -210,7 +209,6 @@ function App() {
 						Completed
 					</label>
 				</div>
-
 				<div
 					className="btn-group btn-group-sm mb-3"
 					role="group"
@@ -232,7 +230,7 @@ function App() {
 						className="btn btn-outline-primary"
 						htmlFor="sort-original"
 					>
-						Original
+						Original Order
 					</label>
 					<input
 						type="radio"
@@ -247,7 +245,7 @@ function App() {
 						className="btn btn-outline-primary"
 						htmlFor="sort-pending"
 					>
-						Pending
+						Pending First
 					</label>
 					<input
 						type="radio"
@@ -262,7 +260,7 @@ function App() {
 						className="btn btn-outline-primary"
 						htmlFor="sort-completed"
 					>
-						Completed
+						Completed First
 					</label>
 				</div>
 			</div>
