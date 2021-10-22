@@ -7,7 +7,7 @@ This is also an attempt at understanding the implications of using index as keys
 */
 
 import "./App.css"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
 function App() {
 	const skeletonTask = {
@@ -43,6 +43,13 @@ function App() {
 	const [sort, setSort] = useState("original")
 	const [editing, setEditing] = useState(-1)
 	const [newTitle, setNewTitle] = useState("")
+
+	const updateField = useRef()
+
+	useEffect(() => {
+		//focus updateField
+		updateField.current && updateField.current.focus()
+	}, [editing])
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -307,6 +314,7 @@ function App() {
 										) : (
 											<div className="me-3 flex-grow-1">
 												<input
+													ref={updateField}
 													type="text"
 													className="form-control"
 													value={newTitle}
