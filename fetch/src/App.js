@@ -1,6 +1,7 @@
 /*
 
 This repo looks into fetch and axios + differences in their responses
+Recommended read: https://masteringjs.io/tutorials/axios/vs-fetch
 
 */
 
