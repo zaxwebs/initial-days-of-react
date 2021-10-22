@@ -18,22 +18,37 @@ function App() {
 	const initialTasks = [
 		{
 			...skeletonTask,
-			title: "Update apps",
+			title: "Learn about react basics & hooks with a todo app",
 			completed: true,
 		},
 		{
 			...skeletonTask,
-			title: "Learn the basics of React",
+			title: "Learn about fetching data from an API",
 			completed: true,
 		},
 		{
 			...skeletonTask,
-			title: "Learn more about React",
+			title: "Learn about form handling and validation",
 			completed: false,
 		},
 		{
 			...skeletonTask,
-			title: "Read about Apache",
+			title: "Learn about components and global state",
+			completed: false,
+		},
+		{
+			...skeletonTask,
+			title: "Learn about authentication and authorization",
+			completed: false,
+		},
+		{
+			...skeletonTask,
+			title: "Learn about CSS in JS, styled components",
+			completed: false,
+		},
+		{
+			...skeletonTask,
+			title: "Learn about sending data",
 			completed: false,
 		},
 	]

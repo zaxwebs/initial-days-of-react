@@ -1,7 +1,9 @@
 /*
 
 This repo looks into fetch and axios + differences in their responses
-Recommended read: https://masteringjs.io/tutorials/axios/vs-fetch
+Recommended reads:
+https://masteringjs.io/tutorials/axios/vs-fetch
+https://www.better.dev/asynchronous-javascript-using-async-await
 
 */
 
@@ -58,6 +60,19 @@ function App() {
 			})
 	}
 
+	const fetchAsyncUserWithAxios = async () => {
+		resetState()
+		try {
+			resetState()
+			const response = await axios.get(url)
+			setUser(response.data.results[0])
+		} catch (e) {
+			setError(e)
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
 	const capitalizeFirstLetter = (string) => {
 		return string.charAt(0).toUpperCase() + string.slice(1)
 	}
@@ -71,9 +86,15 @@ function App() {
 				onClick={() => fetchUserWithFetch()}
 			></input>
 			<input
-				className="btn btn-primary mb-3"
+				className="btn btn-primary mb-3 me-3"
 				type="button"
 				value="Generate a user using Axios"
+				onClick={() => fetchUserWithAxios()}
+			></input>
+			<input
+				className="btn btn-primary mb-3"
+				type="button"
+				value="Generate a user using Axios asynchronously"
 				onClick={() => fetchUserWithAxios()}
 			></input>
 			{isLoading ? (
