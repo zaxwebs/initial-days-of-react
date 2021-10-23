@@ -29,7 +29,7 @@ function App() {
 		{
 			...skeletonTask,
 			title: "Learn about form handling and validation",
-			completed: false,
+			completed: true,
 		},
 		{
 			...skeletonTask,

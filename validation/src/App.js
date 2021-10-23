@@ -1,3 +1,9 @@
+/*
+
+The purpose of this repo is to try validation the vanilla way
+
+*/
+
 import "./App.css"
 import { useState } from "react"
 

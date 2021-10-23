@@ -1,3 +1,9 @@
+/*
+
+The purpose of this repo is to try validation using Formik
+
+*/
+
 import "./App.css"
 import { useFormik } from "formik"
 
@@ -31,50 +37,53 @@ function App() {
 		return errors
 	}
 
-	const formik = useFormik({ initialValues, validate, onSubmit })
+	const formA = useFormik({ initialValues, validate, onSubmit })
 
 	return (
 		<div className="container py-3">
-			<form className="col-3" onSubmit={formik.handleSubmit}>
-				<div className="mb-2">
-					<label htmlFor="email">Email Address</label>
-					<input
-						className="form-control"
-						id="name"
-						name="name"
-						type="name"
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-						value={formik.values.name}
-					/>
-					{formik.touched.name && formik.errors.name && (
-						<small className="d-block text-danger">
-							{formik.errors.name}
-						</small>
-					)}
-				</div>
-				<div className="mb-2">
-					<label htmlFor="email">Email Address</label>
-					<input
-						className="form-control"
-						id="email"
-						name="email"
-						type="text"
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-						value={formik.values.email}
-					/>
-					{formik.touched.email && formik.errors.email && (
-						<small className="d-block text-danger">
-							{formik.errors.email}
-						</small>
-					)}
-				</div>
+			<div className="row">
+				<form className="col-md-6" onSubmit={formA.handleSubmit}>
+					<h3>Form A</h3>
+					<div className="mb-2">
+						<label htmlFor="email">Name</label>
+						<input
+							className="form-control"
+							id="name"
+							name="name"
+							type="name"
+							onChange={formA.handleChange}
+							onBlur={formA.handleBlur}
+							value={formA.values.name}
+						/>
+						{formA.touched.name && formA.errors.name && (
+							<small className="d-block text-danger">
+								{formA.errors.name}
+							</small>
+						)}
+					</div>
+					<div className="mb-2">
+						<label htmlFor="email">Email Address</label>
+						<input
+							className="form-control"
+							id="email"
+							name="email"
+							type="text"
+							onChange={formA.handleChange}
+							onBlur={formA.handleBlur}
+							value={formA.values.email}
+						/>
+						{formA.touched.email && formA.errors.email && (
+							<small className="d-block text-danger">
+								{formA.errors.email}
+							</small>
+						)}
+					</div>
 
-				<button className="btn btn-primary" type="submit">
-					Subscribe to Newsletter
-				</button>
-			</form>
+					<button className="btn btn-primary" type="submit">
+						Subscribe to Newsletter
+					</button>
+				</form>
+			</div>
 		</div>
 	)
 }
