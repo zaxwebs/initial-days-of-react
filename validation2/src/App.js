@@ -5,7 +5,7 @@ The purpose of this repo is to try validation using Formik
 */
 
 import "./App.css"
-import { useFormik } from "formik"
+import { useFormik, Formik, Field, Form, ErrorMessage } from "formik"
 
 function App() {
 	const initialValues = {
@@ -42,47 +42,96 @@ function App() {
 	return (
 		<div className="container py-3">
 			<div className="row">
-				<form className="col-md-6" onSubmit={formA.handleSubmit}>
-					<h3>Form A</h3>
-					<div className="mb-2">
-						<label htmlFor="email">Name</label>
-						<input
-							className="form-control"
-							id="name"
-							name="name"
-							type="name"
-							onChange={formA.handleChange}
-							onBlur={formA.handleBlur}
-							value={formA.values.name}
-						/>
-						{formA.touched.name && formA.errors.name && (
-							<small className="d-block text-danger">
-								{formA.errors.name}
-							</small>
-						)}
-					</div>
-					<div className="mb-2">
-						<label htmlFor="email">Email Address</label>
-						<input
-							className="form-control"
-							id="email"
-							name="email"
-							type="text"
-							onChange={formA.handleChange}
-							onBlur={formA.handleBlur}
-							value={formA.values.email}
-						/>
-						{formA.touched.email && formA.errors.email && (
-							<small className="d-block text-danger">
-								{formA.errors.email}
-							</small>
-						)}
-					</div>
+				<div className="col-md-6">
+					<form onSubmit={formA.handleSubmit}>
+						<h3>Form A</h3>
+						<div className="mb-2">
+							<label htmlFor="email">Name</label>
+							<input
+								className="form-control"
+								id="name"
+								name="name"
+								type="name"
+								onChange={formA.handleChange}
+								onBlur={formA.handleBlur}
+								value={formA.values.name}
+							/>
+							{formA.touched.name && formA.errors.name && (
+								<small className="d-block text-danger">
+									{formA.errors.name}
+								</small>
+							)}
+						</div>
+						<div className="mb-2">
+							<label htmlFor="email">Email Address</label>
+							<input
+								className="form-control"
+								id="email"
+								name="email"
+								type="text"
+								onChange={formA.handleChange}
+								onBlur={formA.handleBlur}
+								value={formA.values.email}
+							/>
+							{formA.touched.email && formA.errors.email && (
+								<small className="d-block text-danger">
+									{formA.errors.email}
+								</small>
+							)}
+						</div>
 
-					<button className="btn btn-primary" type="submit">
-						Subscribe to Newsletter
-					</button>
-				</form>
+						<button className="btn btn-primary" type="submit">
+							Subscribe to Newsletter
+						</button>
+					</form>
+				</div>
+
+				<div className="col-md-6">
+					<h3>Form B</h3>
+					<Formik
+						initialValues={initialValues}
+						onSubmit={onSubmit}
+						validate={validate}
+					>
+						<Form>
+							<div className="mb-2">
+								<label htmlFor="name">First Name</label>
+								<Field
+									className="form-control"
+									name="name"
+									type="text"
+								/>
+								<ErrorMessage
+									render={(msg) => (
+										<small className="d-block text-danger">
+											{msg}
+										</small>
+									)}
+									name="name"
+								/>
+							</div>
+							<div className="mb-2">
+								<label htmlFor="email">Email Address</label>
+								<Field
+									className="form-control"
+									name="email"
+									type="text"
+								/>
+								<ErrorMessage
+									render={(msg) => (
+										<small className="d-block text-danger">
+											{msg}
+										</small>
+									)}
+									name="email"
+								/>
+							</div>
+							<button className="btn btn-primary" type="submit">
+								Subscribe to Newsletter
+							</button>
+						</Form>
+					</Formik>
+				</div>
 			</div>
 		</div>
 	)
