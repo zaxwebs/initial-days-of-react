@@ -1,6 +1,12 @@
 import "./App.css"
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+	useParams,
+} from "react-router-dom"
 
 function App() {
 	return (
@@ -18,9 +24,19 @@ function App() {
 					<Route path="/contact">Contact</Route>
 					<Route path="/">Home</Route>
 				</Switch>
+				<Switch>
+					<Route path="/:id">
+						<Child />
+					</Route>
+				</Switch>
 			</Router>
 		</div>
 	)
+}
+
+function Child() {
+	let { id } = useParams()
+	return <div className="params">ID: {id}</div>
 }
 
 export default App
