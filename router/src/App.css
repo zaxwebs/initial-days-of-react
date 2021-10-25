@@ -1,0 +1,17 @@
+html {
+	font-family: "Courier New", Courier, monospace;
+}
+
+nav {
+	margin-bottom: 1rem;
+}
+
+.App {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 8px;
+}
+
+.nav-item {
+	margin-right: 1rem;
+}

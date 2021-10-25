@@ -95,7 +95,7 @@ function App() {
 					>
 						<Form>
 							<div className="mb-2">
-								<label htmlFor="name">First Name</label>
+								<label htmlFor="name">Name</label>
 								<Field
 									className="form-control"
 									name="name"
