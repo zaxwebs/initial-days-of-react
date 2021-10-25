@@ -31,17 +31,12 @@ function App() {
 					<Route path="/contact">Contact</Route>
 					<Route path="/">Home</Route>
 				</Switch>
-				<Switch>
-					<Route path="/:id">
-						<Child />
-					</Route>
-				</Switch>
 			</Router>
 		</div>
 	)
 }
 
-function Child() {
+function Topic() {
 	let { id } = useParams()
 	return <div className="params">ID: {id}</div>
 }
@@ -67,7 +62,7 @@ function Topics() {
 				</ul>
 			</Route>
 			<Route path={`${path}/:id`}>
-				<Child />
+				<Topic />
 			</Route>
 		</Switch>
 	)
